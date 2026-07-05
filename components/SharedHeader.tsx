@@ -1,7 +1,39 @@
+import { updateURLParams } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("query") || "",
+  );
+
+  const [selectedFilter, setSelectedFilter] = useState(
+    searchParams.get("filter") || "Most Recent",
+  );
+
+  useEffect(() => {
+    setSearchQuery(searchParams("query") || "");
+    setSelectedFilter(searchParams.get("filter") || "Most Recent");
+  }, [searchParams]);
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (searchQuery !== searchParams.get("query")) {
+        const url = updateURLParams(
+          searchParams,
+          { query: searchQuery || null },
+          pathname,
+        );
+        router.push(url);
+      }
+    }, 500);
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery, searchParams, pathname, router]);
+
   return (
     <header className="header">
       <section className="header-container">

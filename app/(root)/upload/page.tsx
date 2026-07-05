@@ -197,6 +197,4 @@ const UploadPage = () => {
   );
 };
 
-<button type="submit" disabled={isSubmitting} className="submit-button">
-  {isSubmitting ? "Uploading..." : "Upload Video"}
-</button>;
+export default UploadPage;
