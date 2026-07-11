@@ -1,6 +1,8 @@
 import { EmptyState, Pagination, SharedHeader, VideoCard } from "@/components";
 import { getAllVideos } from "@/lib/actions/video";
 
+export const dynamic = "force-dynamic";
+
 const page = async ({ searchParams }: SearchParams) => {
   const { query, filter, page } = await searchParams;
 

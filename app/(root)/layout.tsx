@@ -1,4 +1,5 @@
 import { Navbar } from "@/components";
+export const dynamic = "force-dynamic";
 
 const RootLayout = ({
   children,

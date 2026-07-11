@@ -3,6 +3,8 @@ import { Karla } from "next/font/google";
 import "./globals.css";
 import { satoshi } from "../fonts/font";
 
+export const dynamic = "force-dynamic";
+
 const geistKarla = Karla({
   variable: "--font-geist-karla",
   subsets: ["latin"],
