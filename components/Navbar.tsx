@@ -1,13 +1,15 @@
 "use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { redirect, useRouter } from "next/navigation";
 
-const user = {};
-
+import { authClient } from "@/lib/auth-client";
+import ImageWithFallback from "./ImageWithFallback";
 const Navbar = () => {
-  const router = useRouter;
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   return (
     <header className="navbar">
       <nav>
@@ -32,7 +34,18 @@ const Navbar = () => {
                 className="rounded-full aspect-square"
               />
             </button>
-            <button className="cursor-pointer">
+            <button
+              onClick={async () => {
+                return await authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      redirect("/sign-in");
+                    },
+                  },
+                });
+              }}
+              className="cursor-pointer"
+            >
               <Image
                 src="/assets/icons/logout.svg"
                 alt="logout"

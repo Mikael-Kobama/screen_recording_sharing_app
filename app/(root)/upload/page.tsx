@@ -11,6 +11,23 @@ import { FileInput, FormField } from "@/components";
 import { useFileInput } from "@/lib/hooks/useFileInput";
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from "@/constants";
 
+const uploadFileToBunny = (
+  file: File,
+  uploadUrl: string,
+  accessKey: string,
+): Promise<void> =>
+  fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": file.type,
+      AccessKey: accessKey,
+    },
+    body: file,
+  }).then((response) => {
+    if (!response.ok)
+      throw new Error(`Upload failed with status ${response.status}`);
+  });
+
 const UploadPage = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,7 +52,6 @@ const UploadPage = () => {
     const checkForRecordedVideo = async () => {
       try {
         const stored = sessionStorage.getItem("recordedVideo");
-
         if (!stored) return;
 
         const { url, name, type, duration } = JSON.parse(stored);
@@ -60,11 +76,12 @@ const UploadPage = () => {
         sessionStorage.removeItem("recordedVideo");
         URL.revokeObjectURL(url);
       } catch (err) {
-        console.log("Error loading recorded video:", err);
+        console.error("Error loading recorded video:", err);
       }
     };
+
     checkForRecordedVideo();
-  });
+  }, [video]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -75,6 +92,7 @@ const UploadPage = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
     setIsSubmitting(true);
 
     try {
@@ -82,6 +100,7 @@ const UploadPage = () => {
         setError("Please upload video and thumbnail files.");
         return;
       }
+
       if (!formData.title || !formData.description) {
         setError("Please fill in all required fields.");
         return;
@@ -133,8 +152,8 @@ const UploadPage = () => {
       <h1>Upload a video</h1>
       {error && <div className="error-field">{error}</div>}
       <form
+        className="rounded-20 gap-6 w-full flex flex-col shadow-10 px-5 py-7.5"
         onSubmit={onSubmit}
-        className="rounded-20 gap-6 w-full flex flex-col shadow-10 px-5 py-7 5"
       >
         <FormField
           id="title"
