@@ -8,6 +8,9 @@ import VideoCard from "@/components/VideoCard";
 import { redirect } from "next/dist/server/api-utils";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const ProfilePage = async ({ params, searchParams }: ParamsWithSearch) => {
   const { id } = await params;
   const { query, fiter } = await searchParams;

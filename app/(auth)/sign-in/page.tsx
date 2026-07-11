@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { authClient } from "@/lib/auth-client";
+
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
-
-import { authClient } from "@/lib/auth-client";
 
 const SignIn = () => {
   return (
@@ -25,7 +25,7 @@ const SignIn = () => {
         <div className="description">
           <section>
             <figure>
-              {Array.from({ ength: 5 }).map((_, index) => (
+              {Array.from({ length: 5 }).map((_, index) => (
                 <Image
                   src="/assets/icons/star.svg"
                   alt="Star Icon"
@@ -72,6 +72,7 @@ const SignIn = () => {
             Create and share your very first <span>SnapCast video</span> in no
             time!
           </p>
+
           <button
             onClick={async () => {
               return await authClient.signIn.social({

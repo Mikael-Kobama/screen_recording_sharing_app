@@ -10,7 +10,9 @@ import arcjet, {
 } from "@arcjet/next";
 import { getEnv } from "./utils";
 
-// Re-export the rules to simplify imports inside handlers
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export {
   detectBot,
   fixedWindow,
