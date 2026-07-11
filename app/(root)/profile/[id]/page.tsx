@@ -1,5 +1,8 @@
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 import { getAllVideosByUser } from "@/lib/actions/video";
 import { EmptyState, SharedHeader, VideoCard } from "@/components";
 

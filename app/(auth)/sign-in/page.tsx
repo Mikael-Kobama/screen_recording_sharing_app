@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 import { authClient } from "@/lib/auth-client";
 
 const SignIn = () => {

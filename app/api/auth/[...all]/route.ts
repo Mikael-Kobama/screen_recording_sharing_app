@@ -9,6 +9,9 @@ import { auth } from "@/lib/auth";
 import { toNextJsHandler } from "better-auth/next-js";
 import { NextRequest } from "next/server";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const emailValidation = aj.withRule(
   validateEmail({
     mode: "LIVE",

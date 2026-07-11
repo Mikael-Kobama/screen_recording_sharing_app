@@ -1,5 +1,7 @@
-"use client";
+("use client");
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 import { EmptyState } from "@/components";
 import SharedHeader from "@/components/SharedHeader";
 import VideoCard from "@/components/VideoCard";

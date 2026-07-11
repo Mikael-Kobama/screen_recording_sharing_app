@@ -8,6 +8,9 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),

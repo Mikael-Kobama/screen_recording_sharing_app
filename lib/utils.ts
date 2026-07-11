@@ -4,6 +4,9 @@ import { ilike, sql } from "drizzle-orm";
 import { videos } from "@/drizzle/schema";
 import { DEFAULT_VIDEO_CONFIG, DEFAULT_RECORDING_CONFIG } from "@/constants";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
